@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 // Проверяем ошибки.
 $errors = FALSE;
-if (empty($_POST['fio']) || !preg_match('/^([а-яА-ЯЁёa-zA-Z0-9_]+)$/u', $_POST['fio'])) {
+if (empty($_POST['fio']) || !preg_match('/^([а-яА-ЯЁёa-zA-Z0-9_,.\s-]+)$/u', $_POST['fio'])) {
     print('Заполните имя.<br/>');
     $errors = TRUE;
 }
@@ -63,7 +63,7 @@ else{
 }
 
 
-if (empty($_POST['bio']) || !preg_match('/^([а-яА-ЯЁёa-zA-Z0-9_]+)$/u', $_POST['bio'])) {
+if (empty($_POST['bio']) || !preg_match('/^([а-яА-ЯЁёa-zA-Z0-9_,.\s-]+)$/u', $_POST['bio'])) {
     print('Заполните биографию.<br/>');
     $errors = TRUE;
 }
