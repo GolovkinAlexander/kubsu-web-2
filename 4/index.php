@@ -168,6 +168,13 @@ else {
               break;
           }
       }
+
+      $abs=array();
+      
+      foreach ($_POST['abilities'] as $res) {
+          $abs[$res-1] = $res;
+      }
+
       setcookie('abilities_value', serialize($_POST['abilities']), time() + 365 * 24 * 60 * 60);
   }
 
