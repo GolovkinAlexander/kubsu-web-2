@@ -9,14 +9,11 @@ global $db;
     ]);
     
 
-
-
-
 function update_tables($db, $id, $data, $abilities) {
     $stmt = $db->prepare("UPDATE maintable2 SET name = ?, email = ?, date_of_birth = ?, gender = ?, limbs = ?, bio = ?, checkbox = ? WHERE id = ?");
     $stmt -> execute([$data['name'], $data['email'], $data['date_of_birth'], $data['gender'], $data['limbs'], $data['bio'], $data['checkbox'], $id]);
     
-    $stmt = $db->prepare("SELECT * m_ab2 WHERE id_m = ?");
+    $stmt = $db->prepare("SELECT * FROM m_ab2 WHERE id_m = ?");
     $stmt -> execute([$id]);
     $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
     

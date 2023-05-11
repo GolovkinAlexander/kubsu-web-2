@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     $abilities = $_POST['abilities' . $row];
                     
-                    update_application($db, $ids[$row], $data, $abilities);
+                    update_tables($db, $ids[$row], $data, $abilities);
                     
                 }
                 $messages2[] = 'Результаты сохранены.';
@@ -224,28 +224,74 @@ $errors=err_declare($counter);
     <td><input name="fio[]" class="form-control form-control-sm <?php if ($errors['fio']) {print 'is-invalid';} ?>" placeholder="Введите имя" value="<?= strip_tags($res["name"])  ?>"></td>
     <td><input name="email[]" type="email" class="form-control form-control-sm <?php if ($errors['email']) {print 'is-invalid';} ?>" id="email" placeholder="Введите почту" value="<?= strip_tags($res["email"]) ?>"></td>
     <td><input name="date_of_birth[]" type="date" class="form-control form-control-sm <?php if ($errors['date_of_birth']) {print 'is-invalid';} ?>" value="<?= strip_tags($res["date_of_birth"]) ?>"></td>
-    <td> <label for="g1"><input type="radio" class="form-check-input <?php if ($errors['gender']) {print 'is-invalid';} ?>" name="gender<?= $counter ?>" id="g1" value="m" <?php if ($res["gender"]=="m") {print 'checked';} ?>>
-                    М</label> 
-                     <label for="g2"><input type="radio" class="form-check-input <?php if ($errors['gender']) {print 'is-invalid';} ?>" name="gender<?= $counter ?>" id="g2" value="w" <?php if ($res["gender"]=="w") {print 'checked';} ?>>
-                    Ж</label></td>
+    
+    <td> 
+    <label for="g1"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+    {print 'is-invalid';} ?>" name="gender<?= $counter ?>" id="g1" value="m" <?php if ($res["gender"]=="m") 
+    {print 'checked';} ?>>
+     М</label> 
+     <label for="g2"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+     {print 'is-invalid';} ?>" name="gender<?= $counter ?>" id="g2" value="w" <?php if ($res["gender"]=="w") 
+     {print 'checked';} ?>>
+     Ж</label>
+     <label for="g3"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+     {print 'is-invalid';} ?>" name="gender<?= $counter ?>" id="g3" value="t" <?php if ($res["gender"]=="t") 
+     {print 'checked';} ?>>
+     Т</label></td>
                     
-    <td> <label for="l1"><input type="radio" class="form-check-input <?php if ($errors['gender']) {print 'is-invalid';} ?>" name="limbs<?= $counter ?>" id="l1" value="2" <?php if ($res["limbs"]=="2") {print 'checked';} ?>>
-                    2</label> 
-                     <label for="l2"><input type="radio" class="form-check-input <?php if ($errors['gender']) {print 'is-invalid';} ?>" name="limbs<?= $counter ?>" id="l2" value="4" <?php if ($res["limbs"]=="4") {print 'checked';} ?>>
-                    4</label></td>
+    <td> <label for="l1"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+    {print 'is-invalid';} ?>" name="limbs<?= $counter ?>" id="l1" value="3" <?php if ($res["limbs"]=="3") 
+    {print 'checked';} ?>>
+    <4</label> 
+    <label for="l2"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+    {print 'is-invalid';} ?>" name="limbs<?= $counter ?>" id="l2" value="4" <?php if ($res["limbs"]=="4") 
+    {print 'checked';} ?>>
+    4</label>
+    <label for="l2"><input type="radio" class="form-check-input <?php if ($errors['gender']) 
+    {print 'is-invalid';} ?>" name="limbs<?= $counter ?>" id="l2" value="5" <?php if ($res["limbs"]=="5") 
+    {print 'checked';} ?>>
+    >4</label></td>
+    
 <?php     $stmt = $db->prepare("SELECT * FROM m_ab2 where id_m=?");
 $stmt -> execute([$res["id"]]);
 $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-    <td> <select class="form-control form-control-sm <?php if ($errors['abilities']) {print 'is-invalid';} ?>" name="abilities<?= $counter ?>[]" id="mltplslct" multiple="multiple">
-                    <option value="1" <?php if(!empty($result2)) {if ($result2[0]['id_ab']=='1') {print 'selected';}} ?>>бессмертие</option>
-                    <option value="2" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]['id_ab'] == '2') ||
-    (isset($result2[1]['id_ab']) && $result2[1]['id_ab'] == '2')) {print 'selected';}} ?>>прохождение сквозь стены</option>
-                    <option value="3" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]['id_ab'] == '3') ||
+    <td> 
+    <select class="form-control form-control-sm <?php if ($errors['abilities']) {print 'is-invalid';} ?>" 
+    name="abilities<?= $counter ?>[]" id="mltplslct" multiple="multiple">
+    
+    <option value="1" <?php if(!empty($result2)) {if ($result2[0]['id_ab']=='1') {print 'selected';}} ?>>
+    Неуязвимость</option>
+    
+    <option value="2" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]['id_ab'] == '2') 
+        ||
+    (isset($result2[1]['id_ab']) && $result2[1]['id_ab'] == '2')) {print 'selected';}} ?>>Сверхсила
+    </option>
+    
+    <option value="3" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]
+    ['id_ab'] == '3') ||
     (isset($result2[1]['id_ab']) && $result2[1]['id_ab'] == '3') ||
-    (isset($result2[2]['id_ab']) && $result2[2]['id_ab'] == '3')) {print 'selected';}} ?>>левитация</option>
-                </select></td>
+    (isset($result2[2]['id_ab']) && $result2[2]['id_ab'] == '3')) {print 'selected';}} ?>>Левитация</option>
+    
+    <option value="4" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]
+    ['id_ab'] == '4') ||
+    (isset($result2[1]['id_ab']) && $result2[1]['id_ab'] == '4') ||
+    (isset($result2[2]['id_ab']) && $result2[2]['id_ab'] == '4') ||
+    (isset($result2[3]['id_ab']) && $result2[3]['id_ab'] == '4'))
+    {print 'selected';}} ?>>Манипуляции с временем</option>
+    
+    <option value="5" <?php if(!empty($result2)) {if ((isset($result2[0]['id_ab']) && $result2[0]
+    ['id_ab'] && $result2[0]['id_ab'] == '5') ||
+    (isset($result2[1]['id_ab']) && $result2[1]['id_ab'] == '5') ||
+    (isset($result2[2]['id_ab']) && $result2[2]['id_ab'] == '5') ||
+    (isset($result2[3]['id_ab']) && $result2[3]['id_ab'] == '5') ||
+    (isset($result2[4]['id_ab']) && $result2[4]['id_ab'] == '5'))
+    {print 'selected';}} ?>>Я Бэтмен</option>
+    </select>
+    
+    </td>
+    
     <td><textarea  name="bio[]" rows="3" class="form-control form-control-sm <?php if ($errors['bio']) {print 'is-invalid';} ?>"><?= strip_tags($res["bio"]) ?></textarea></td>
     <td><input name="checkbox<?= $counter ?>" type="checkbox" class="form-check-input <?php if ($errors['checkbox']) {print 'is-invalid';} ?>" value="1" <?php if ($res["checkbox"]=="1") {print 'checked';} ?>></td>
     <td><?= $res["user_id"] ?></td>
@@ -261,8 +307,6 @@ $result2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php     $stmt = $db->prepare("SELECT * FROM m_ab2");
 $stmt -> execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC); ?>
-
-
 
 
 </body>
