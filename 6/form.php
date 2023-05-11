@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <title>Задание 5</title>
+    <title>Задание 6</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js" defer></script>
     <style>
     .wrapper{
@@ -26,11 +26,30 @@
     .login {
     display:flex;
     }
+    .admin {
+    position:absolute;
+    right:20%;
+    top:20%;
+    }
     
     </style>
 </head>
 
 <body>
+
+
+<?php
+
+if (empty($_COOKIE[session_name()]) || empty($_SESSION['login'])){
+    echo '
+         <div class = "admin">
+    <form action="admin.php">
+    <button>Я Админ</button>
+    </form>
+    </div>
+    ';
+}
+?>
     <div class="wrapper" id="forma">
     <?php
 if (!empty($messages)) {
@@ -45,7 +64,11 @@ if (!empty($messages)) {
 // Далее выводим форму отмечая элементы с ошибками классом error
 // и задавая начальные значения элементов ранее сохраненными.
 ?>
+
+
 		<div class="form">
+		
+		
         <form id="form1" action="" method="POST">
         
             <label for="name">
